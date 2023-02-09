@@ -24,7 +24,10 @@ function Index() {
               {image && (
                 <div className="w-[10rem] h-[10rem] sm:w-[20rem] sm:h-[20rem] overflow-hidden mb-3">
                   {image && (
-                    <img src={preview} className="w-full h-full object-cover rounded-lg shadow-lg" />
+                    <img
+                      src={preview}
+                      className="w-full h-full object-cover rounded-lg shadow-lg"
+                    />
                   )}
                 </div>
               )}
@@ -45,10 +48,10 @@ function Index() {
                 </svg>
               )}
 
-              <div className=" text-sm text-gray-600 ">
+              <div className=" text-sm text-gray-600  ">
                 <label
                   htmlFor="file-upload"
-                  className="relative cursor-pointer bg-[#531DE3] px-2 py-1 text-white text-lg rounded-md font-medium text-blue-700 hover:text-blue-800 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                  className="relative cursor-pointer bg-[#8B80F8] px-2 py-1 text-white text-lg  rounded-md font-medium text-blue-700 hover:text-blue-800 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
                 >
                   <span>อัพโหลดรูปภาพ</span>
                   <input
@@ -64,7 +67,7 @@ function Index() {
             </div>
           </div>
         </div>
-        <div className="bg-white px-5 py-5 col-span-12 row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6 rounded-lg shadow-lg overflow-y-auto"></div>
+        <div className="bg-white px-5 py-5 col-span-12 border border-[#dedede] row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6 rounded-lg shadow-lg overflow-y-auto"></div>
       </div>
     </div>
   );
