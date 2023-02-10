@@ -1,5 +1,7 @@
 import { getBase64 } from "@/utils/convertToBase64";
 import { previewImage } from "@/utils/previewImage";
+import { uploadImage } from "@/utils/uploadImage";
+import { Console, log } from "console";
 import React, { ChangeEvent, useEffect, useState } from "react";
 
 function Index() {
@@ -8,12 +10,14 @@ function Index() {
   const [file, setFile] = useState<File>();
   const [base64, setBase64] = useState();
 
-  useEffect(() => {
-    const convertImageToBase64 = async () => {
-      const base64 = await getBase64(file!);
-    };
-    convertImageToBase64();
-  }, [file]);
+  // useEffect(() => {
+  const convertImageToBase64 = async () => {
+    const base64 = await getBase64(file!);
+    console.log("base64", base64);
+    await uploadImage(base64);
+  };
+  //   convertImageToBase64();
+  // }, [file]);
 
   return (
     <div className="flex justify-center px-3  ">
@@ -75,7 +79,10 @@ function Index() {
               </div>
               {image && (
                 <div className=" text-base text-gray-600 mt-5   ">
-                  <button className="bg-[#8B80F8] hover:bg-[#7065d4] text-white px-[2rem] py-[0.5rem] rounded-lg ">
+                  <button
+                    onClick={async () => convertImageToBase64()}
+                    className="bg-[#8B80F8] hover:bg-[#7065d4] text-white px-[2rem] py-[0.5rem] rounded-lg "
+                  >
                     Upload
                   </button>
                 </div>
