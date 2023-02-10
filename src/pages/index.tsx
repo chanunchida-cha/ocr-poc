@@ -8,7 +8,7 @@ function Index() {
   const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>();
   const [file, setFile] = useState<File>();
-  const [data, setData] = useState<[]>();
+  const [data, setData] = useState<[] | null>();
 
   // useEffect(() => {
   const convertImageToBase64 = async () => {
@@ -18,10 +18,10 @@ function Index() {
     setData(res.data);
     console.log("res", res.data);
   };
-  //   convertImageToBase64();
-  // }, [file]);
 
-  useEffect(() => {}, [data]);
+  useEffect(() => {
+    setData(null);
+  }, [file]);
 
   return (
     <div className="flex justify-center px-3  ">
@@ -84,7 +84,7 @@ function Index() {
               {image && (
                 <div className=" text-base text-gray-600 mt-5   ">
                   <button
-                    onClick={async () => convertImageToBase64()}
+                    onClick={async () => await convertImageToBase64()}
                     className="bg-[#8B80F8] hover:bg-[#7065d4] text-white px-[2rem] py-[0.5rem] rounded-lg "
                   >
                     Upload
@@ -94,15 +94,15 @@ function Index() {
             </div>
           </div>
         </div>
-        <div className="bg-white px-5 py-5 col-span-12 border border-[#dedede] row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6 rounded-lg shadow-lg overflow-y-auto">
-          {data ? (
+        {data !== null ? (
+          <div className="bg-white px-5 py-5 col-span-12 border border-[#dedede] row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6 rounded-lg shadow-lg overflow-y-auto">
             <>
-              {data.map((item: any) => {
+              {data?.map((item: any) => {
                 return <>{item.description}</>;
               })}
             </>
-          ) : null}
-        </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );
