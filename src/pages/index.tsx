@@ -9,14 +9,16 @@ function Index() {
   const [file, setFile] = useState<File>();
   const [data, setData] = useState<[] | null>();
   const [pending, setPending] = useState<boolean>(false);
+  const [hidden, sethidden] = useState(false);
 
   const convertImageToBase64 = async () => {
+    setData(null);
     setPending(true);
     const base64 = await getBase64(file!);
     console.log("base64", base64);
     const res = await uploadImage(base64);
-    setData(res.data);
-    console.log("res", res.data);
+    setData(res?.data);
+    console.log("res", res?.data);
     setPending(false);
   };
 
@@ -95,7 +97,8 @@ function Index() {
             </div>
           </div>
         </div>
-        {data !== null ? (
+
+        {data?.length ? (
           <div className="bg-white px-5 py-5 col-span-12 border border-[#dedede] row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6 rounded-lg shadow-lg overflow-y-auto">
             <>
               {data?.map((item: any) => {
@@ -104,6 +107,7 @@ function Index() {
             </>
           </div>
         ) : null}
+
         {pending && (
           <div className=" col-span-12 row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6">
             <div className="flex justify-center">
