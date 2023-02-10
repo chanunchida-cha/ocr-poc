@@ -85,7 +85,6 @@ function Index() {
                       name="file-upload"
                       type="file"
                       className="sr-only"
-                     
                       required
                     />
                   </label>
