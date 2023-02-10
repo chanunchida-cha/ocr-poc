@@ -1,28 +1,19 @@
+import { getBase64 } from "@/utils/convertToBase64";
+import { previewImage } from "@/utils/previewImage";
 import React, { ChangeEvent, useState } from "react";
 
 function Index() {
   const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>();
-  const showPreview = (e: ChangeEvent<HTMLInputElement>) => {
-    let file;
-    if (e.target.files && e.target.files[0]) {
-      file = e.target.files[0];
-      const objectUrl = URL.createObjectURL(file);
-      setPreview(objectUrl);
-      console.log(objectUrl);
-      setImage(file);
-    } else {
-      setImage(image);
-    }
-  };
+
   return (
     <div className="flex justify-center px-3 py-3">
       <div className=" grid grid-rows-6 grid-cols-12 gap-4 h-screen w-screen">
         <div className=" col-span-12 row-start-2 row-span-2 sm:row-start-2 sm:row-span-2 sm:col-start-4 sm:col-span-6 ">
           <div className=" flex justify-center items-center h-full bg-white shadow-lg rounded-md border border-[#dedede]">
-            <div className="space-y-1 text-center">
+            <div className="text-center  rounded-md">
               {image && (
-                <div className="w-[10rem] h-[10rem] sm:w-[20rem] sm:h-[20rem] overflow-hidden mb-3">
+                <div className="w-[10rem] h-[10rem] sm:w-[13rem] sm:h-[13rem] overflow-hidden mb-3">
                   {image && (
                     <img
                       src={preview}
@@ -48,10 +39,10 @@ function Index() {
                 </svg>
               )}
 
-              <div className=" text-sm text-gray-600  ">
+              <div className=" text-sm text-gray-600   ">
                 <label
                   htmlFor="file-upload"
-                  className="relative cursor-pointer bg-[#8B80F8] px-2 py-1 text-white text-lg  rounded-md font-medium text-blue-700 hover:text-blue-800 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500"
+                  className="relative cursor-pointer bg-[#8B80F8] px-2 py-1 text-white text-lg  rounded-md font-medium "
                 >
                   <span>อัพโหลดรูปภาพ</span>
                   <input
@@ -59,7 +50,11 @@ function Index() {
                     name="file-upload"
                     type="file"
                     className="sr-only"
-                    onChange={showPreview}
+                    onChange={async (e) => {
+                      previewImage(e, setPreview, setImage, image!);
+                      const file = e.target.files?.[0];
+                      const base64 = await getBase64(file!);
+                    }}
                     required
                   />
                 </label>
