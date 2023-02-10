@@ -2,7 +2,9 @@ export function getBase64(file: File) {
   const reader = new FileReader();
   const base64 = Promise.all([
     new Promise((resolve, reject) => {
-      reader.readAsDataURL(file);
+      if(file){
+        reader.readAsDataURL(file);
+      }
       reader.onload = function () {
         return resolve(reader.result);
       };

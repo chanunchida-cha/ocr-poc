@@ -1,17 +1,32 @@
 import { getBase64 } from "@/utils/convertToBase64";
 import { previewImage } from "@/utils/previewImage";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 
 function Index() {
   const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>();
+  const [file, setFile] = useState<File>();
+  const [base64, setBase64] = useState();
+
+  useEffect(() => {
+    const convertImageToBase64 = async () => {
+      const base64 = await getBase64(file!);
+    };
+    convertImageToBase64();
+  }, [file]);
 
   return (
-    <div className="flex justify-center px-3 py-3">
-      <div className=" grid grid-rows-6 grid-cols-12 gap-4 h-screen w-screen">
-        <div className=" col-span-12 row-start-2 row-span-2 sm:row-start-2 sm:row-span-2 sm:col-start-4 sm:col-span-6 ">
+    <div className="flex justify-center px-3  ">
+      <div className=" grid grid-rows-6 grid-cols-12 gap-2 h-screen w-screen">
+        <div className=" col-span-12 row-start-1 row-span-3 sm:row-start-1 sm:row-span-3 sm:col-start-4 sm:col-span-6 mt-5 ">
           <div className=" flex justify-center items-center h-full bg-white shadow-lg rounded-md border border-[#dedede]">
-            <div className="text-center  rounded-md">
+            <div
+              className={`text-center  rounded-md ${
+                !image
+                  ? "px-6 pt-5 pb-6 border-2 border-[#dedede] border-dashed"
+                  : null
+              }`}
+            >
               {image && (
                 <div className="w-[10rem] h-[10rem] sm:w-[13rem] sm:h-[13rem] overflow-hidden mb-3">
                   {image && (
@@ -42,7 +57,7 @@ function Index() {
               <div className=" text-sm text-gray-600   ">
                 <label
                   htmlFor="file-upload"
-                  className="relative cursor-pointer bg-[#8B80F8] px-2 py-1 text-white text-lg  rounded-md font-medium "
+                  className="relative cursor-pointer  px-2 py-1 text-[#8B80F8] text-base rounded-md font-medium "
                 >
                   <span>อัพโหลดรูปภาพ</span>
                   <input
@@ -52,13 +67,30 @@ function Index() {
                     className="sr-only"
                     onChange={async (e) => {
                       previewImage(e, setPreview, setImage, image!);
-                      const file = e.target.files?.[0];
-                      const base64 = await getBase64(file!);
+                      setFile(e.target.files?.[0]);
                     }}
                     required
                   />
                 </label>
               </div>
+              {image && (
+                <div className=" text-sm text-gray-600 mt-5   ">
+                  <label
+                    htmlFor="file-upload"
+                    className="relative cursor-pointer bg-[#8B80F8] px-2 py-1 text-white text-base  rounded-md font-medium "
+                  >
+                    <span>บันทึก</span>
+                    <input
+                      id="file-upload"
+                      name="file-upload"
+                      type="file"
+                      className="sr-only"
+                     
+                      required
+                    />
+                  </label>
+                </div>
+              )}
             </div>
           </div>
         </div>
