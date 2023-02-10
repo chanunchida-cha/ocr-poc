@@ -54,12 +54,12 @@ function Index() {
                 </svg>
               )}
 
-              <div className=" text-sm text-gray-600   ">
+              <div>
                 <label
                   htmlFor="file-upload"
-                  className="relative cursor-pointer  px-2 py-1 text-[#8B80F8] text-base rounded-md font-medium "
+                  className="relative cursor-pointer  px-2 py-1 text-[#8B80F8] hover:text-[#7065d4] text-base rounded-md font-semibold "
                 >
-                  <span>อัพโหลดรูปภาพ</span>
+                  <span>Browse</span>
                   <input
                     id="file-upload"
                     name="file-upload"
@@ -74,20 +74,10 @@ function Index() {
                 </label>
               </div>
               {image && (
-                <div className=" text-sm text-gray-600 mt-5   ">
-                  <label
-                    htmlFor="file-upload"
-                    className="relative cursor-pointer bg-[#8B80F8] px-2 py-1 text-white text-base  rounded-md font-medium "
-                  >
-                    <span>บันทึก</span>
-                    <input
-                      id="file-upload"
-                      name="file-upload"
-                      type="file"
-                      className="sr-only"
-                      required
-                    />
-                  </label>
+                <div className=" text-base text-gray-600 mt-5   ">
+                  <button className="bg-[#8B80F8] hover:bg-[#7065d4] text-white px-[2rem] py-[0.5rem] rounded-lg ">
+                    Upload
+                  </button>
                 </div>
               )}
             </div>
