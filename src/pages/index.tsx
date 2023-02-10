@@ -8,16 +8,20 @@ function Index() {
   const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>();
   const [file, setFile] = useState<File>();
-  const [base64, setBase64] = useState();
+  const [data, setData] = useState<[]>();
 
   // useEffect(() => {
   const convertImageToBase64 = async () => {
     const base64 = await getBase64(file!);
     console.log("base64", base64);
-    await uploadImage(base64);
+    const res = await uploadImage(base64);
+    setData(res.data);
+    console.log("res", res.data);
   };
   //   convertImageToBase64();
   // }, [file]);
+
+  useEffect(() => {}, [data]);
 
   return (
     <div className="flex justify-center px-3  ">
@@ -90,7 +94,15 @@ function Index() {
             </div>
           </div>
         </div>
-        <div className="bg-white px-5 py-5 col-span-12 border border-[#dedede] row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6 rounded-lg shadow-lg overflow-y-auto"></div>
+        <div className="bg-white px-5 py-5 col-span-12 border border-[#dedede] row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6 rounded-lg shadow-lg overflow-y-auto">
+          {data ? (
+            <>
+              {data.map((item: any) => {
+                return <>{item.description}</>;
+              })}
+            </>
+          ) : null}
+        </div>
       </div>
     </div>
   );
