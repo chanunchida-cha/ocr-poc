@@ -101,8 +101,8 @@ function Index() {
         {data?.length ? (
           <div className="bg-white px-5 py-5 col-span-12 border border-[#dedede] row-start-4 row-span-2 sm:row-start-4 sm:row-span-2 sm:col-start-4 sm:col-span-6 rounded-lg shadow-lg overflow-y-auto overflow-x-hidden">
             <>
-              {data?.map((item: any) => {
-                return <div>{item.description}</div>;
+              {data?.map((item: any, index: number) => {
+                return <div key={index}>{item.description}</div>;
               })}
             </>
           </div>
